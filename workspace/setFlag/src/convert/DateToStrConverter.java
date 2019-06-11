@@ -29,7 +29,6 @@ public class DateToStrConverter implements Converter<String, Date> {
 		//Date指定格式：yyyy-MM-dd
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		return simpleDateFormat.format(date);
-		
 	}
 	
 	public static void main(String[] args) {
