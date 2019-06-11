@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="setflag.dao.DailyPunchMapper" >
+  <resultMap id="BaseResultMap" type="setflag.pojo.DailyPunch" >
+    <id column="daily_punch_id" property="dailyPunchId" jdbcType="VARCHAR" />
+    <result column="daily_punch_title" property="dailyPunchTitle" jdbcType="VARCHAR" />
+    <result column="daily_punch_image" property="dailyPunchImage" jdbcType="VARCHAR" />
+    <result column="daily_punch_date" property="dailyPunchDate" jdbcType="DATE" />
+    <result column="daily_punch_comment_num" property="dailyPunchCommentNum" jdbcType="INTEGER" />
+    <result column="daily_punch_agree" property="dailyPunchAgree" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="setflag.pojo.DailyPunch" extends="BaseResultMap" >
+    <result column="daily_punch_content" property="dailyPunchContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    daily_punch_id, daily_punch_title, daily_punch_image, daily_punch_date, daily_punch_comment_num, 
+    daily_punch_agree, user_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    daily_punch_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="setflag.pojo.DailyPunchExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from daily_punch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="offset != null and limit != null">
+   	 limit ${offset},${limit}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="setflag.pojo.DailyPunchExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from daily_punch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from daily_punch
+    where daily_punch_id = #{dailyPunchId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from daily_punch
+    where daily_punch_id = #{dailyPunchId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="setflag.pojo.DailyPunchExample" >
+    delete from daily_punch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="setflag.pojo.DailyPunch" >
+    insert into daily_punch (daily_punch_id, daily_punch_title, daily_punch_image, 
+      daily_punch_date, daily_punch_comment_num, daily_punch_agree, 
+      user_id, daily_punch_content)
+    values (#{dailyPunchId,jdbcType=VARCHAR}, #{dailyPunchTitle,jdbcType=VARCHAR}, #{dailyPunchImage,jdbcType=VARCHAR}, 
+      #{dailyPunchDate,jdbcType=DATE}, #{dailyPunchCommentNum,jdbcType=INTEGER}, #{dailyPunchAgree,jdbcType=INTEGER}, 
+      #{userId,jdbcType=VARCHAR}, #{dailyPunchContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="setflag.pojo.DailyPunch" >
+    insert into daily_punch
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dailyPunchId != null" >
+        daily_punch_id,
+      </if>
+      <if test="dailyPunchTitle != null" >
+        daily_punch_title,
+      </if>
+      <if test="dailyPunchImage != null" >
+        daily_punch_image,
+      </if>
+      <if test="dailyPunchDate != null" >
+        daily_punch_date,
+      </if>
+      <if test="dailyPunchCommentNum != null" >
+        daily_punch_comment_num,
+      </if>
+      <if test="dailyPunchAgree != null" >
+        daily_punch_agree,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="dailyPunchContent != null" >
+        daily_punch_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dailyPunchId != null" >
+        #{dailyPunchId,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyPunchTitle != null" >
+        #{dailyPunchTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyPunchImage != null" >
+        #{dailyPunchImage,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyPunchDate != null" >
+        #{dailyPunchDate,jdbcType=DATE},
+      </if>
+      <if test="dailyPunchCommentNum != null" >
+        #{dailyPunchCommentNum,jdbcType=INTEGER},
+      </if>
+      <if test="dailyPunchAgree != null" >
+        #{dailyPunchAgree,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyPunchContent != null" >
+        #{dailyPunchContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="setflag.pojo.DailyPunchExample" resultType="java.lang.Integer" >
+    select count(*) from daily_punch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update daily_punch
+    <set >
+      <if test="record.dailyPunchId != null" >
+        daily_punch_id = #{record.dailyPunchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dailyPunchTitle != null" >
+        daily_punch_title = #{record.dailyPunchTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dailyPunchImage != null" >
+        daily_punch_image = #{record.dailyPunchImage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dailyPunchDate != null" >
+        daily_punch_date = #{record.dailyPunchDate,jdbcType=DATE},
+      </if>
+      <if test="record.dailyPunchCommentNum != null" >
+        daily_punch_comment_num = #{record.dailyPunchCommentNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.dailyPunchAgree != null" >
+        daily_punch_agree = #{record.dailyPunchAgree,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.dailyPunchContent != null" >
+        daily_punch_content = #{record.dailyPunchContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update daily_punch
+    set daily_punch_id = #{record.dailyPunchId,jdbcType=VARCHAR},
+      daily_punch_title = #{record.dailyPunchTitle,jdbcType=VARCHAR},
+      daily_punch_image = #{record.dailyPunchImage,jdbcType=VARCHAR},
+      daily_punch_date = #{record.dailyPunchDate,jdbcType=DATE},
+      daily_punch_comment_num = #{record.dailyPunchCommentNum,jdbcType=INTEGER},
+      daily_punch_agree = #{record.dailyPunchAgree,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      daily_punch_content = #{record.dailyPunchContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update daily_punch
+    set daily_punch_id = #{record.dailyPunchId,jdbcType=VARCHAR},
+      daily_punch_title = #{record.dailyPunchTitle,jdbcType=VARCHAR},
+      daily_punch_image = #{record.dailyPunchImage,jdbcType=VARCHAR},
+      daily_punch_date = #{record.dailyPunchDate,jdbcType=DATE},
+      daily_punch_comment_num = #{record.dailyPunchCommentNum,jdbcType=INTEGER},
+      daily_punch_agree = #{record.dailyPunchAgree,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="setflag.pojo.DailyPunch" >
+    update daily_punch
+    <set >
+      <if test="dailyPunchTitle != null" >
+        daily_punch_title = #{dailyPunchTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyPunchImage != null" >
+        daily_punch_image = #{dailyPunchImage,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyPunchDate != null" >
+        daily_punch_date = #{dailyPunchDate,jdbcType=DATE},
+      </if>
+      <if test="dailyPunchCommentNum != null" >
+        daily_punch_comment_num = #{dailyPunchCommentNum,jdbcType=INTEGER},
+      </if>
+      <if test="dailyPunchAgree != null" >
+        daily_punch_agree = #{dailyPunchAgree,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="dailyPunchContent != null" >
+        daily_punch_content = #{dailyPunchContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where daily_punch_id = #{dailyPunchId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="setflag.pojo.DailyPunch" >
+    update daily_punch
+    set daily_punch_title = #{dailyPunchTitle,jdbcType=VARCHAR},
+      daily_punch_image = #{dailyPunchImage,jdbcType=VARCHAR},
+      daily_punch_date = #{dailyPunchDate,jdbcType=DATE},
+      daily_punch_comment_num = #{dailyPunchCommentNum,jdbcType=INTEGER},
+      daily_punch_agree = #{dailyPunchAgree,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR},
+      daily_punch_content = #{dailyPunchContent,jdbcType=LONGVARCHAR}
+    where daily_punch_id = #{dailyPunchId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="setflag.pojo.DailyPunch" >
+    update daily_punch
+    set daily_punch_title = #{dailyPunchTitle,jdbcType=VARCHAR},
+      daily_punch_image = #{dailyPunchImage,jdbcType=VARCHAR},
+      daily_punch_date = #{dailyPunchDate,jdbcType=DATE},
+      daily_punch_comment_num = #{dailyPunchCommentNum,jdbcType=INTEGER},
+      daily_punch_agree = #{dailyPunchAgree,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=VARCHAR}
+    where daily_punch_id = #{dailyPunchId,jdbcType=VARCHAR}
+  </update>
+</mapper>

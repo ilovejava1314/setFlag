@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="setflag.dao.FrequencyPunchMapper" >
+  <resultMap id="BaseResultMap" type="setflag.pojo.FrequencyPunch" >
+    <id column="frequency_punch_id" property="frequencyPunchId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="flag_id" property="flagId" jdbcType="VARCHAR" />
+    <result column="is_ture" property="isTure" jdbcType="VARCHAR" />
+    <result column="frequency_punch_date" property="frequencyPunchDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    frequency_punch_id, user_id, flag_id, is_ture, frequency_punch_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="setflag.pojo.FrequencyPunchExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from frequency_punch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from frequency_punch
+    where frequency_punch_id = #{frequencyPunchId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from frequency_punch
+    where frequency_punch_id = #{frequencyPunchId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="setflag.pojo.FrequencyPunchExample" >
+    delete from frequency_punch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="setflag.pojo.FrequencyPunch" >
+    insert into frequency_punch (frequency_punch_id, user_id, flag_id, 
+      is_ture, frequency_punch_date)
+    values (#{frequencyPunchId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{flagId,jdbcType=VARCHAR}, 
+      #{isTure,jdbcType=VARCHAR}, #{frequencyPunchDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="setflag.pojo.FrequencyPunch" >
+    insert into frequency_punch
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="frequencyPunchId != null" >
+        frequency_punch_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="flagId != null" >
+        flag_id,
+      </if>
+      <if test="isTure != null" >
+        is_ture,
+      </if>
+      <if test="frequencyPunchDate != null" >
+        frequency_punch_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="frequencyPunchId != null" >
+        #{frequencyPunchId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="flagId != null" >
+        #{flagId,jdbcType=VARCHAR},
+      </if>
+      <if test="isTure != null" >
+        #{isTure,jdbcType=VARCHAR},
+      </if>
+      <if test="frequencyPunchDate != null" >
+        #{frequencyPunchDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="setflag.pojo.FrequencyPunchExample" resultType="java.lang.Integer" >
+    select count(*) from frequency_punch
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update frequency_punch
+    <set >
+      <if test="record.frequencyPunchId != null" >
+        frequency_punch_id = #{record.frequencyPunchId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.flagId != null" >
+        flag_id = #{record.flagId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isTure != null" >
+        is_ture = #{record.isTure,jdbcType=VARCHAR},
+      </if>
+      <if test="record.frequencyPunchDate != null" >
+        frequency_punch_date = #{record.frequencyPunchDate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update frequency_punch
+    set frequency_punch_id = #{record.frequencyPunchId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      flag_id = #{record.flagId,jdbcType=VARCHAR},
+      is_ture = #{record.isTure,jdbcType=VARCHAR},
+      frequency_punch_date = #{record.frequencyPunchDate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="setflag.pojo.FrequencyPunch" >
+    update frequency_punch
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="flagId != null" >
+        flag_id = #{flagId,jdbcType=VARCHAR},
+      </if>
+      <if test="isTure != null" >
+        is_ture = #{isTure,jdbcType=VARCHAR},
+      </if>
+      <if test="frequencyPunchDate != null" >
+        frequency_punch_date = #{frequencyPunchDate,jdbcType=DATE},
+      </if>
+    </set>
+    where frequency_punch_id = #{frequencyPunchId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="setflag.pojo.FrequencyPunch" >
+    update frequency_punch
+    set user_id = #{userId,jdbcType=VARCHAR},
+      flag_id = #{flagId,jdbcType=VARCHAR},
+      is_ture = #{isTure,jdbcType=VARCHAR},
+      frequency_punch_date = #{frequencyPunchDate,jdbcType=DATE}
+    where frequency_punch_id = #{frequencyPunchId,jdbcType=VARCHAR}
+  </update>
+</mapper>

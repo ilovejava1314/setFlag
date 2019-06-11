@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="setflag.dao.SysFlagMapper" >
+  <resultMap id="BaseResultMap" type="setflag.pojo.SysFlag" >
+    <id column="sys_flag_id" property="sysFlagId" jdbcType="VARCHAR" />
+    <result column="sys_flag_title" property="sysFlagTitle" jdbcType="VARCHAR" />
+    <result column="sys_flag_content" property="sysFlagContent" jdbcType="VARCHAR" />
+    <result column="sys_flag_image" property="sysFlagImage" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sys_flag_id, sys_flag_title, sys_flag_content, sys_flag_image
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="setflag.pojo.SysFlagExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_flag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="offset != null and limit != null">
+   	 limit ${offset},${limit}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_flag
+    where sys_flag_id = #{sysFlagId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_flag
+    where sys_flag_id = #{sysFlagId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="setflag.pojo.SysFlagExample" >
+    delete from sys_flag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="setflag.pojo.SysFlag" >
+    insert into sys_flag (sys_flag_id, sys_flag_title, sys_flag_content, 
+      sys_flag_image)
+    values (#{sysFlagId,jdbcType=VARCHAR}, #{sysFlagTitle,jdbcType=VARCHAR}, #{sysFlagContent,jdbcType=VARCHAR}, 
+      #{sysFlagImage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="setflag.pojo.SysFlag" >
+    insert into sys_flag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sysFlagId != null" >
+        sys_flag_id,
+      </if>
+      <if test="sysFlagTitle != null" >
+        sys_flag_title,
+      </if>
+      <if test="sysFlagContent != null" >
+        sys_flag_content,
+      </if>
+      <if test="sysFlagImage != null" >
+        sys_flag_image,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sysFlagId != null" >
+        #{sysFlagId,jdbcType=VARCHAR},
+      </if>
+      <if test="sysFlagTitle != null" >
+        #{sysFlagTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sysFlagContent != null" >
+        #{sysFlagContent,jdbcType=VARCHAR},
+      </if>
+      <if test="sysFlagImage != null" >
+        #{sysFlagImage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="setflag.pojo.SysFlagExample" resultType="java.lang.Integer" >
+    select count(*) from sys_flag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_flag
+    <set >
+      <if test="record.sysFlagId != null" >
+        sys_flag_id = #{record.sysFlagId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysFlagTitle != null" >
+        sys_flag_title = #{record.sysFlagTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysFlagContent != null" >
+        sys_flag_content = #{record.sysFlagContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sysFlagImage != null" >
+        sys_flag_image = #{record.sysFlagImage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_flag
+    set sys_flag_id = #{record.sysFlagId,jdbcType=VARCHAR},
+      sys_flag_title = #{record.sysFlagTitle,jdbcType=VARCHAR},
+      sys_flag_content = #{record.sysFlagContent,jdbcType=VARCHAR},
+      sys_flag_image = #{record.sysFlagImage,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="setflag.pojo.SysFlag" >
+    update sys_flag
+    <set >
+      <if test="sysFlagTitle != null" >
+        sys_flag_title = #{sysFlagTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sysFlagContent != null" >
+        sys_flag_content = #{sysFlagContent,jdbcType=VARCHAR},
+      </if>
+      <if test="sysFlagImage != null" >
+        sys_flag_image = #{sysFlagImage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sys_flag_id = #{sysFlagId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="setflag.pojo.SysFlag" >
+    update sys_flag
+    set sys_flag_title = #{sysFlagTitle,jdbcType=VARCHAR},
+      sys_flag_content = #{sysFlagContent,jdbcType=VARCHAR},
+      sys_flag_image = #{sysFlagImage,jdbcType=VARCHAR}
+    where sys_flag_id = #{sysFlagId,jdbcType=VARCHAR}
+  </update>
+</mapper>

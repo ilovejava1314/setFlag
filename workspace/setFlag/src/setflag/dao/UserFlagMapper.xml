@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="setflag.dao.UserFlagMapper" >
+  <resultMap id="BaseResultMap" type="setflag.pojo.UserFlag" >
+    <id column="user_flag_id" property="userFlagId" jdbcType="VARCHAR" />
+    <result column="user_flag_title" property="userFlagTitle" jdbcType="VARCHAR" />
+    <result column="user_flag_content" property="userFlagContent" jdbcType="VARCHAR" />
+    <result column="user_flag_date" property="userFlagDate" jdbcType="DATE" />
+    <result column="user_flag_image" property="userFlagImage" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    user_flag_id, user_flag_title, user_flag_content, user_flag_date, user_flag_image
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="setflag.pojo.UserFlagExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_flag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_flag
+    where user_flag_id = #{userFlagId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_flag
+    where user_flag_id = #{userFlagId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="setflag.pojo.UserFlagExample" >
+    delete from user_flag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="setflag.pojo.UserFlag" >
+    insert into user_flag (user_flag_id, user_flag_title, user_flag_content, 
+      user_flag_date, user_flag_image)
+    values (#{userFlagId,jdbcType=VARCHAR}, #{userFlagTitle,jdbcType=VARCHAR}, #{userFlagContent,jdbcType=VARCHAR}, 
+      #{userFlagDate,jdbcType=DATE}, #{userFlagImage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="setflag.pojo.UserFlag" >
+    insert into user_flag
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userFlagId != null" >
+        user_flag_id,
+      </if>
+      <if test="userFlagTitle != null" >
+        user_flag_title,
+      </if>
+      <if test="userFlagContent != null" >
+        user_flag_content,
+      </if>
+      <if test="userFlagDate != null" >
+        user_flag_date,
+      </if>
+      <if test="userFlagImage != null" >
+        user_flag_image,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userFlagId != null" >
+        #{userFlagId,jdbcType=VARCHAR},
+      </if>
+      <if test="userFlagTitle != null" >
+        #{userFlagTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="userFlagContent != null" >
+        #{userFlagContent,jdbcType=VARCHAR},
+      </if>
+      <if test="userFlagDate != null" >
+        #{userFlagDate,jdbcType=DATE},
+      </if>
+      <if test="userFlagImage != null" >
+        #{userFlagImage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="setflag.pojo.UserFlagExample" resultType="java.lang.Integer" >
+    select count(*) from user_flag
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_flag
+    <set >
+      <if test="record.userFlagId != null" >
+        user_flag_id = #{record.userFlagId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userFlagTitle != null" >
+        user_flag_title = #{record.userFlagTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userFlagContent != null" >
+        user_flag_content = #{record.userFlagContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userFlagDate != null" >
+        user_flag_date = #{record.userFlagDate,jdbcType=DATE},
+      </if>
+      <if test="record.userFlagImage != null" >
+        user_flag_image = #{record.userFlagImage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_flag
+    set user_flag_id = #{record.userFlagId,jdbcType=VARCHAR},
+      user_flag_title = #{record.userFlagTitle,jdbcType=VARCHAR},
+      user_flag_content = #{record.userFlagContent,jdbcType=VARCHAR},
+      user_flag_date = #{record.userFlagDate,jdbcType=DATE},
+      user_flag_image = #{record.userFlagImage,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="setflag.pojo.UserFlag" >
+    update user_flag
+    <set >
+      <if test="userFlagTitle != null" >
+        user_flag_title = #{userFlagTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="userFlagContent != null" >
+        user_flag_content = #{userFlagContent,jdbcType=VARCHAR},
+      </if>
+      <if test="userFlagDate != null" >
+        user_flag_date = #{userFlagDate,jdbcType=DATE},
+      </if>
+      <if test="userFlagImage != null" >
+        user_flag_image = #{userFlagImage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_flag_id = #{userFlagId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="setflag.pojo.UserFlag" >
+    update user_flag
+    set user_flag_title = #{userFlagTitle,jdbcType=VARCHAR},
+      user_flag_content = #{userFlagContent,jdbcType=VARCHAR},
+      user_flag_date = #{userFlagDate,jdbcType=DATE},
+      user_flag_image = #{userFlagImage,jdbcType=VARCHAR}
+    where user_flag_id = #{userFlagId,jdbcType=VARCHAR}
+  </update>
+</mapper>
